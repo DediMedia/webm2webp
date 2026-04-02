@@ -7,6 +7,8 @@ PYTHON_BIN="${ROOT_DIR}/venv/bin/python"
 ICON_PNG="${ROOT_DIR}/assets/icon_1024.png"
 ICON_ICNS="${ROOT_DIR}/assets/WebM2WebP.icns"
 ICONSET_DIR="${ROOT_DIR}/assets/WebM2WebP.iconset"
+APP_BUNDLE="${ROOT_DIR}/dist/WebM2WebP.app"
+APP_SIGN_IDENTITY="${APP_SIGN_IDENTITY:-}"
 
 if [[ ! -x "${PYTHON_BIN}" ]]; then
   echo "Virtualenv tidak ditemukan di ${PYTHON_BIN}"
@@ -59,6 +61,23 @@ rm -rf build dist WebM2WebP.spec
   --icon "${ICON_ICNS}" \
   webm2webp_gui.py
 
+if [[ -n "${APP_SIGN_IDENTITY}" ]]; then
+  if ! command -v codesign >/dev/null 2>&1; then
+    echo "codesign tidak tersedia."
+    echo "Signing app membutuhkan tools bawaan macOS."
+    exit 1
+  fi
+
+  echo "Signing app bundle dengan identity: ${APP_SIGN_IDENTITY}"
+  codesign \
+    --force \
+    --deep \
+    --sign "${APP_SIGN_IDENTITY}" \
+    --options runtime \
+    --timestamp \
+    "${APP_BUNDLE}"
+fi
+
 echo "Build selesai."
-echo "App: ${ROOT_DIR}/dist/WebM2WebP.app"
+echo "App: ${APP_BUNDLE}"
 echo "Pastikan ffmpeg dan img2webp tersedia di PATH saat app dijalankan."

@@ -10,6 +10,9 @@ Pastikan hal berikut sudah beres:
 - branch `main` sudah berisi commit terbaru
 - working tree bersih
 - aplikasi masih bisa dijalankan atau dibuild
+- jika ingin release signed, sertifikat `Developer ID Application` dan `Developer ID Installer` sudah tersedia di keychain runner/lokal
+- jika ingin release notarized, siapkan `NOTARY_KEYCHAIN_PROFILE` atau kombinasi `NOTARY_APPLE_ID`, `NOTARY_TEAM_ID`, dan `NOTARY_PASSWORD`
+- untuk GitHub-hosted runner, sertifikat biasanya perlu diimport dari secrets `APPLE_CERTIFICATE_P12_BASE64`, `APPLE_CERTIFICATE_PASSWORD`, dan `KEYCHAIN_PASSWORD`
 
 ## 1. Cek Kondisi Repo
 
@@ -65,6 +68,9 @@ Setelah tag dipush:
 - workflow `Release macOS App` akan berjalan otomatis untuk dua arsitektur
 - GitHub akan membuat release baru
 - aset `WebM2WebP-macos-x86_64.zip` dan `WebM2WebP-macos-arm64.zip` akan diupload ke halaman Releases
+- aset `WebM2WebP-macos-x86_64.pkg` dan `WebM2WebP-macos-arm64.pkg` juga akan diupload ke halaman Releases
+- jika secrets signing tersedia, workflow akan import sertifikat ke keychain sementara lalu sign artefak
+- jika secrets notarization tersedia, workflow akan menotarisasi file `.pkg` sebelum diupload
 
 ## 6. Verifikasi Release
 
@@ -80,8 +86,23 @@ Yang perlu dicek:
 - status workflow `success`
 - asset `WebM2WebP-macos-x86_64.zip` tersedia untuk Intel Mac
 - asset `WebM2WebP-macos-arm64.zip` tersedia untuk Apple Silicon Mac
+- asset `WebM2WebP-macos-x86_64.pkg` tersedia untuk Intel Mac
+- asset `WebM2WebP-macos-arm64.pkg` tersedia untuk Apple Silicon Mac
 - ukuran file terlihat wajar
 - release muncul di tab Releases
+- jika build signed dipakai, verifikasi `pkgutil --check-signature` menunjukkan identity yang benar
+- jika build notarized dipakai, verifikasi `xcrun stapler validate` berhasil pada file `.pkg`
+
+Secrets GitHub yang relevan:
+
+- `APPLE_CERTIFICATE_P12_BASE64`
+- `APPLE_CERTIFICATE_PASSWORD`
+- `KEYCHAIN_PASSWORD`
+- `APP_SIGN_IDENTITY`
+- `PKG_SIGN_IDENTITY`
+- `NOTARY_APPLE_ID`
+- `NOTARY_TEAM_ID`
+- `NOTARY_PASSWORD`
 
 ## Pola Versi
 

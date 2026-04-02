@@ -10,10 +10,14 @@ Format yang dipakai sederhana:
 ## [Unreleased]
 
 ### Added
-- Belum ada perubahan tercatat.
+- Menambahkan script build installer macOS `.pkg` dari hasil `WebM2WebP.app`.
 
 ### Changed
-- Belum ada perubahan tercatat.
+- Workflow release GitHub sekarang mengupload artefak `.pkg` selain `.zip` untuk Intel dan Apple Silicon.
+- README dan panduan release diperbarui agar mencakup alur build dan distribusi `.pkg`.
+- Script build macOS sekarang mendukung signing opsional untuk `.app` dan `.pkg` via environment variable.
+- Script build installer macOS sekarang mendukung notarization opsional via `notarytool`.
+- Workflow GitHub Release sekarang mendukung import sertifikat signing dan kredensial notarization dari GitHub secrets.
 
 ### Fixed
 - Belum ada perubahan tercatat.
