@@ -1,5 +1,13 @@
 .DS_Store
-dist/sinema-*.zip
-dist/sinema/
-node_modules/
-vendor/bin/
+__pycache__/
+*.py[cod]
+
+.venv/
+venv/
+
+build/
+dist/
+*.spec
+
+input.webm
+output.webp
