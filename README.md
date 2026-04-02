@@ -15,6 +15,7 @@ Riwayat perubahan versi tersedia di [CHANGELOG.md](CHANGELOG.md).
 Bagian `Unreleased` di changelog bisa dipakai untuk mencatat perubahan sebelum membuat tag release berikutnya.
 Panduan release langkah demi langkah tersedia di [RELEASE.md](RELEASE.md).
 Panduan kontribusi tersedia di [CONTRIBUTING.md](CONTRIBUTING.md).
+Project ini menggunakan lisensi [MIT](LICENSE).
 
 ## Kebutuhan
 
