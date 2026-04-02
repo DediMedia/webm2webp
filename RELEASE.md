@@ -62,9 +62,9 @@ git push origin v1.0.2
 
 Setelah tag dipush:
 
-- workflow `Release macOS App` akan berjalan otomatis
+- workflow `Release macOS App` akan berjalan otomatis untuk dua arsitektur
 - GitHub akan membuat release baru
-- aset `WebM2WebP-macos.zip` akan diupload ke halaman Releases
+- aset `WebM2WebP-macos-x86_64.zip` dan `WebM2WebP-macos-arm64.zip` akan diupload ke halaman Releases
 
 ## 6. Verifikasi Release
 
@@ -78,7 +78,8 @@ gh release view v1.0.2 --repo DediMedia/webm2webp
 Yang perlu dicek:
 
 - status workflow `success`
-- asset `WebM2WebP-macos.zip` tersedia
+- asset `WebM2WebP-macos-x86_64.zip` tersedia untuk Intel Mac
+- asset `WebM2WebP-macos-arm64.zip` tersedia untuk Apple Silicon Mac
 - ukuran file terlihat wajar
 - release muncul di tab Releases
 

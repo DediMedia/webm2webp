@@ -9,7 +9,7 @@ Project ini mendukung:
 - drag & drop banyak file di GUI
 - pengaturan `FPS`, `Quality`, dan lebar output
 - build menjadi aplikasi macOS `.app`
-- workflow GitHub Release untuk artefak macOS
+- workflow GitHub Release untuk artefak macOS Intel dan Apple Silicon
 
 Riwayat perubahan versi tersedia di [CHANGELOG.md](CHANGELOG.md).
 Bagian `Unreleased` di changelog bisa dipakai untuk mencatat perubahan sebelum membuat tag release berikutnya.
@@ -106,4 +106,5 @@ Setelah itu workflow GitHub akan:
 
 - Output `.webp` akan dibuat di folder yang sama dengan file input.
 - Temporary frame disimpan di folder sementara agar aman untuk batch convert.
+- App akan mencoba mencari `ffmpeg` dan `img2webp` di `PATH`, `/usr/local/bin`, dan `/opt/homebrew/bin`. Ini penting saat app dibuka dari Finder di macOS.
 - Artefak build lebih aman disimpan di GitHub Releases daripada commit hasil build langsung ke repository.

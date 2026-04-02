@@ -10,7 +10,16 @@ permissions:
 
 jobs:
   build-macos:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-13
+            arch: x86_64
+          - runner: macos-14
+            arch: arm64
+
+    runs-on: ${{ matrix.runner }}
 
     steps:
       - name: Checkout repository
@@ -31,7 +40,7 @@ jobs:
         run: ./build_macos_app.sh
 
       - name: Archive app bundle
-        run: ditto -c -k --sequesterRsrc --keepParent dist/WebM2WebP.app dist/WebM2WebP-macos.zip
+        run: ditto -c -k --sequesterRsrc --keepParent dist/WebM2WebP.app dist/WebM2WebP-macos-${{ matrix.arch }}.zip
 
       - name: Create or update GitHub Release
         env:
@@ -41,4 +50,4 @@ jobs:
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
             --generate-notes
-          gh release upload "${GITHUB_REF_NAME}" dist/WebM2WebP-macos.zip --clobber
+          gh release upload "${GITHUB_REF_NAME}" dist/WebM2WebP-macos-${{ matrix.arch }}.zip --clobber

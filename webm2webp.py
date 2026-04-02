@@ -1,19 +1,75 @@
 import argparse
+import os
+import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
+
+
+def _bundle_bin_dirs():
+    executable_path = Path(sys.executable).resolve()
+    candidates = []
+
+    # PyInstaller app bundle on macOS keeps resources under Contents/Resources.
+    candidates.append(executable_path.parent.parent / "Resources" / "bin")
+
+    meipass = getattr(sys, "_MEIPASS", None)
+    if meipass:
+        candidates.append(Path(meipass) / "bin")
+
+    return [path for path in candidates if path.exists()]
+
+
+def resolve_command(command_name):
+    env_key = f"WEBM2WEBP_{command_name.upper()}"
+    env_path = os.environ.get(env_key)
+    if env_path:
+        candidate = Path(env_path).expanduser()
+        if candidate.exists():
+            return str(candidate.resolve())
+
+    direct_match = shutil.which(command_name)
+    if direct_match:
+        return direct_match
+
+    for bin_dir in _bundle_bin_dirs():
+        candidate = bin_dir / command_name
+        if candidate.exists():
+            return str(candidate)
+
+    common_bin_dirs = [
+        Path("/opt/homebrew/bin"),
+        Path("/usr/local/bin"),
+        Path("/opt/local/bin"),
+        Path.home() / ".local" / "bin",
+    ]
+    for bin_dir in common_bin_dirs:
+        candidate = bin_dir / command_name
+        if candidate.exists():
+            return str(candidate)
+
+    searched_paths = [str(path) for path in _bundle_bin_dirs()]
+    searched_paths.extend(str(path) for path in common_bin_dirs)
+    raise RuntimeError(
+        f"'{command_name}' tidak ditemukan. Install tool ini lalu coba lagi. "
+        f"Lokasi yang dicek: PATH, {', '.join(searched_paths)}. "
+        f"Anda juga bisa set environment variable {env_key}."
+    )
 
 
 def webm_to_webp(input_file, output_file=None, fps=10, scale=800, quality=75):
     input_path = Path(input_file).expanduser().resolve()
     output_path = Path(output_file).expanduser().resolve() if output_file else input_path.with_suffix(".webp")
+    ffmpeg_bin = resolve_command("ffmpeg")
+    img2webp_bin = resolve_command("img2webp")
 
     with tempfile.TemporaryDirectory(prefix="webm2webp_") as temp_dir:
         frame_pattern = str(Path(temp_dir) / "frame_%04d.png")
 
         subprocess.run(
             [
-                "ffmpeg",
+                ffmpeg_bin,
                 "-y",
                 "-i",
                 str(input_path),
@@ -30,7 +86,7 @@ def webm_to_webp(input_file, output_file=None, fps=10, scale=800, quality=75):
 
         subprocess.run(
             [
-                "img2webp",
+                img2webp_bin,
                 "-loop",
                 "0",
                 "-q",
