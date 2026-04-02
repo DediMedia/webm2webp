@@ -182,8 +182,12 @@ class App(QWidget):
             self.scale_input.setEnabled(True)
             self.quality_input.setEnabled(True)
 
+def main():
+    app = QApplication(sys.argv)
+    window = App()
+    window.show()
+    return app.exec()
 
-app = QApplication(sys.argv)
-window = App()
-window.show()
-sys.exit(app.exec())
+
+if __name__ == "__main__":
+    sys.exit(main())

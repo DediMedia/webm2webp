@@ -2,6 +2,8 @@
 
 Tool kecil berbasis Python untuk mengonversi file `.webm` menjadi animasi `.webp`.
 
+![Preview GUI](docs/gui-preview.png)
+
 Project ini mendukung:
 - konversi satu atau banyak file sekaligus
 - drag & drop banyak file di GUI
@@ -35,6 +37,12 @@ pip install -r requirements.txt
 
 ```bash
 python3 webm2webp_gui.py
+```
+
+Preview GUI di README ini digenerate dari aplikasi langsung dengan:
+
+```bash
+QT_QPA_PLATFORM=offscreen ./venv/bin/python scripts/render_gui_preview.py docs/gui-preview.png
 ```
 
 Fitur GUI:
