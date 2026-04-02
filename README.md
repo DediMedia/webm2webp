@@ -11,6 +11,8 @@ Project ini mendukung:
 - build menjadi aplikasi macOS `.app`
 - workflow GitHub Release untuk artefak macOS
 
+Riwayat perubahan versi tersedia di [CHANGELOG.md](CHANGELOG.md).
+
 ## Kebutuhan
 
 Pastikan tools berikut tersedia:
