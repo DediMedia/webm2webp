@@ -12,6 +12,7 @@ Project ini mendukung:
 - workflow GitHub Release untuk artefak macOS
 
 Riwayat perubahan versi tersedia di [CHANGELOG.md](CHANGELOG.md).
+Bagian `Unreleased` di changelog bisa dipakai untuk mencatat perubahan sebelum membuat tag release berikutnya.
 
 ## Kebutuhan
 

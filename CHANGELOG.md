@@ -7,6 +7,17 @@ Format yang dipakai sederhana:
 - tanggal rilis
 - perubahan utama
 
+## [Unreleased]
+
+### Added
+- Belum ada perubahan tercatat.
+
+### Changed
+- Belum ada perubahan tercatat.
+
+### Fixed
+- Belum ada perubahan tercatat.
+
 ## [1.0.1] - 2026-04-02
 
 ### Changed
