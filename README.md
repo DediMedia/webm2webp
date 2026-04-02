@@ -13,6 +13,7 @@ Project ini mendukung:
 
 Riwayat perubahan versi tersedia di [CHANGELOG.md](CHANGELOG.md).
 Bagian `Unreleased` di changelog bisa dipakai untuk mencatat perubahan sebelum membuat tag release berikutnya.
+Panduan release langkah demi langkah tersedia di [RELEASE.md](RELEASE.md).
 
 ## Kebutuhan
 
