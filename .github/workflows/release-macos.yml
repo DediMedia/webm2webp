@@ -1,0 +1,44 @@
+name: Release macOS App
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Build macOS app
+        run: ./build_macos_app.sh
+
+      - name: Archive app bundle
+        run: ditto -c -k --sequesterRsrc --keepParent dist/WebM2WebP.app dist/WebM2WebP-macos.zip
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1 || \
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes
+          gh release upload "${GITHUB_REF_NAME}" dist/WebM2WebP-macos.zip --clobber

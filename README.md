@@ -7,6 +7,7 @@ Project ini mendukung:
 - drag & drop banyak file di GUI
 - pengaturan `FPS`, `Quality`, dan lebar output
 - build menjadi aplikasi macOS `.app`
+- workflow GitHub Release untuk artefak macOS
 
 ## Kebutuhan
 
@@ -66,8 +67,29 @@ Hasil build akan tersedia di:
 dist/WebM2WebP.app
 ```
 
+Script build akan:
+- membuat icon app otomatis
+- mengubah icon ke format `.icns`
+- membangun `WebM2WebP.app` dengan PyInstaller
+
+## Release Artefak dari GitHub
+
+Repository ini sudah disiapkan dengan GitHub Actions untuk build artefak macOS otomatis saat Anda push tag versi.
+
+Contoh:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Setelah itu workflow GitHub akan:
+- build `WebM2WebP.app`
+- zip hasil build menjadi `WebM2WebP-macos.zip`
+- upload file zip ke GitHub Release dengan tag yang sama
+
 ## Catatan
 
 - Output `.webp` akan dibuat di folder yang sama dengan file input.
 - Temporary frame disimpan di folder sementara agar aman untuk batch convert.
-- Jika ke depan ingin menyimpan artefak build, lebih aman memakai GitHub Releases daripada commit hasil build langsung ke repository.
+- Artefak build lebih aman disimpan di GitHub Releases daripada commit hasil build langsung ke repository.
