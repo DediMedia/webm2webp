@@ -18,6 +18,17 @@ Format yang dipakai sederhana:
 ### Fixed
 - Belum ada perubahan tercatat.
 
+## [1.0.2] - 2026-04-02
+
+### Changed
+- Menyesuaikan layout GUI agar label `FPS`, `Lebar`, dan `Quality` rata kiri dan progress bar lebih menonjol.
+- Memperbarui preview GUI di README agar sesuai dengan tampilan aplikasi terbaru.
+- Menyesuaikan workflow release GitHub agar menghasilkan artefak macOS terpisah untuk Intel (`x86_64`) dan Apple Silicon (`arm64`).
+
+### Fixed
+- Membuat app lebih andal menemukan `ffmpeg` dan `img2webp` saat dijalankan dari Finder atau hasil build `dist`.
+- Menstabilkan script build macOS agar memakai icon `.icns` yang sudah ada dan tidak mudah gagal saat build lokal.
+
 ## [1.0.1] - 2026-04-02
 
 ### Changed
