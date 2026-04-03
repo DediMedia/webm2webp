@@ -1,5 +1,7 @@
 # webm2webp
 
+Repositori ini berisi skrip Python yang ringan dan cepat untuk mengubah file video berformat WebM menjadi animasi WebP. Dirancang untuk berjalan mulus di ekosistem macOS (termasuk macOS Sequoia dan versi lainnya), alat ini sangat cocok digunakan untuk mengoptimalkan aset web, membuat stiker, atau sekadar melakukan konversi media tanpa perlu membuka software video editing yang berat.
+
 Tool kecil berbasis Python untuk mengonversi file `.webm` menjadi animasi `.webp`.
 
 ![Preview GUI](docs/gui-preview.png)
